@@ -1,7 +1,5 @@
 class ErrorInfo {
-  final String? message;
+  ErrorInfo({required this.message, this.code});
+  final String message;
   final int? code;
-  final String? requestId;
-
-  ErrorInfo({this.message, this.code, this.requestId});
 }

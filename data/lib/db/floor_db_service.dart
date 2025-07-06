@@ -4,16 +4,16 @@ import 'package:data/db/app_database.dart';
 import 'package:floor/floor.dart';
 
 class FloorDbService {
-  static final FloorDbService connect = FloorDbService._internal();
-
-  FloorDbService._internal();
-
-  static String dbName = '';
 
   factory FloorDbService(String databaseName) {
     dbName = databaseName;
     return connect;
   }
+
+  FloorDbService._internal();
+  static final FloorDbService connect = FloorDbService._internal();
+
+  static String dbName = '';
 
   static AppDatabase? _database;
 
@@ -24,9 +24,9 @@ class FloorDbService {
 
   final dbCallBack = Callback(
     onCreate: (database, version) async {
-      print("created");
+      print('created');
       /* database has been created */
-      print("Database Path: ${database.path}");
+      print('Database Path: ${database.path}');
     },
     onOpen: (database) async {
       /* database has been opened */
@@ -37,7 +37,7 @@ class FloorDbService {
   );
 
   Future<AppDatabase> _initializeDatabase() async {
-    return await $FloorAppDatabase
+    return $FloorAppDatabase
         .databaseBuilder(dbName)
         .addCallback(dbCallBack)
         .build();

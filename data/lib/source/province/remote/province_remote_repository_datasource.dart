@@ -1,14 +1,12 @@
 import 'package:data/entity/remote/response/province_response_entity.dart';
 import 'package:data/network/api/api_service.dart';
+import 'package:data/source/province/province_repository_datasources.dart';
 import 'package:retrofit/retrofit.dart';
-
-import '../province_repository_datasources.dart';
 
 class ProvinceRemoteRepositoryDataSourceImpl
     implements ProvinceRemoteRepoDataStore {
-  final ApiService _apiService;
-
   ProvinceRemoteRepositoryDataSourceImpl(this._apiService);
+  final ApiService _apiService;
 
   @override
   Future<HttpResponse<ProvinceResponseEntity>> getProvinces() {

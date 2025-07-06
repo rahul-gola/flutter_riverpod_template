@@ -1,17 +1,19 @@
 import 'package:domain/constants/enum.dart';
+import 'package:domain/error/base_error.dart';
 import 'package:domain/model/error_info.dart';
 
-import 'base_error.dart';
-
 class AppError extends BaseError {
-  AppErrorEnums? errorType;
-
   AppError({
-    required String message,
+    required this.message,
     Exception? throwable,
     ErrorInfo? error,
     this.errorType,
-  }) : super(message, error: error, cause: throwable);
+  }) : super(
+         error: error ?? ErrorInfo(message: message),
+         cause: throwable ?? Exception(),
+       );
+  AppErrorEnums? errorType;
+  final String message;
 
   @override
   String getFriendlyMessage() {

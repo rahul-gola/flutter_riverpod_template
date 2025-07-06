@@ -1,13 +1,12 @@
 import 'package:data/db/floor_db_service.dart';
 import 'package:data/entity/local/province_db_entity.dart';
 
-import '../province_repository_datasources.dart';
+import 'package:data/source/province/province_repository_datasources.dart';
 
 class ProvinceLocalRepositoryDataSourceImpl
     implements ProvinceLocalRepoDataStore {
-  final FloorDbService _database;
-
   ProvinceLocalRepositoryDataSourceImpl(this._database);
+  final FloorDbService _database;
 
   @override
   Future<List<ProvinceDBEntity>> getProvinces() async {

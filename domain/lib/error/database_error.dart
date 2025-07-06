@@ -1,18 +1,19 @@
 import 'package:domain/constants/enum.dart';
 import 'package:domain/error/app_error.dart';
-import 'package:domain/model/error_info.dart';
-
-import 'base_error.dart';
+import 'package:domain/error/base_error.dart';
 
 class DatabaseError extends BaseError {
   DatabaseError({
-    required String message,
-    ErrorInfo? error,
-  }) : super(message, error: error);
+    required this.message,
+    super.error,
+    Exception? cause,
+  }) : super(cause: cause ?? Exception(message));
+
+  final String message;
 
   @override
   String getFriendlyMessage() {
-    return message;
+    return error?.message ?? '';
   }
 
   @override
@@ -20,9 +21,10 @@ class DatabaseError extends BaseError {
     switch (error?.code) {
       case 1:
         return AppError(
-            message: error?.message ?? '',
-            error: error,
-            errorType: AppErrorEnums.DB_ERROR);
+          message: error?.message ?? '',
+          error: error,
+          errorType: AppErrorEnums.DB_ERROR,
+        );
 
       default:
         return AppError(

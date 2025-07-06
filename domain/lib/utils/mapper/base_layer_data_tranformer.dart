@@ -1,4 +1,4 @@
-import 'layer_data_transformer.dart';
+import 'package:domain/utils/mapper/layer_data_transformer.dart';
 
 abstract class BaseLayerDataTransformer<F, T>
     implements LayerDataTransformer<F, T> {

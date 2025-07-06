@@ -79,13 +79,18 @@ class _$AppDatabase extends AppDatabase {
       },
       onUpgrade: (database, startVersion, endVersion) async {
         await MigrationAdapter.runMigrations(
-            database, startVersion, endVersion, migrations);
+          database,
+          startVersion,
+          endVersion,
+          migrations,
+        );
 
         await callback?.onUpgrade?.call(database, startVersion, endVersion);
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `province` (`id` INTEGER, `name` TEXT NOT NULL, PRIMARY KEY (`id`))');
+          'CREATE TABLE IF NOT EXISTS `province` (`id` INTEGER, `name` TEXT NOT NULL, PRIMARY KEY (`id`))',
+        );
 
         await callback?.onCreate?.call(database, version);
       },
@@ -103,12 +108,15 @@ class _$ProvinceDao extends ProvinceDao {
   _$ProvinceDao(
     this.database,
     this.changeListener,
-  )   : _queryAdapter = QueryAdapter(database),
-        _provinceDBEntityInsertionAdapter = InsertionAdapter(
-            database,
-            'province',
-            (ProvinceDBEntity item) =>
-                <String, Object?>{'id': item.id, 'name': item.name});
+  ) : _queryAdapter = QueryAdapter(database),
+      _provinceDBEntityInsertionAdapter = InsertionAdapter(
+        database,
+        'province',
+        (ProvinceDBEntity item) => <String, Object?>{
+          'id': item.id,
+          'name': item.name,
+        },
+      );
 
   final sqflite.DatabaseExecutor database;
 
@@ -120,20 +128,26 @@ class _$ProvinceDao extends ProvinceDao {
 
   @override
   Future<List<ProvinceDBEntity>> getProvinces() async {
-    return _queryAdapter.queryList('SELECT * FROM province',
-        mapper: (Map<String, Object?> row) => ProvinceDBEntity(
-            id: row['id'] as int?, name: row['name'] as String));
+    return _queryAdapter.queryList(
+      'SELECT * FROM province',
+      mapper: (Map<String, Object?> row) =>
+          ProvinceDBEntity(id: row['id'] as int?, name: row['name'] as String),
+    );
   }
 
   @override
   Future<int> insertData(ProvinceDBEntity data) {
     return _provinceDBEntityInsertionAdapter.insertAndReturnId(
-        data, OnConflictStrategy.replace);
+      data,
+      OnConflictStrategy.replace,
+    );
   }
 
   @override
   Future<List<int>> insertDataList(List<ProvinceDBEntity> dataList) {
     return _provinceDBEntityInsertionAdapter.insertListAndReturnIds(
-        dataList, OnConflictStrategy.replace);
+      dataList,
+      OnConflictStrategy.replace,
+    );
   }
 }

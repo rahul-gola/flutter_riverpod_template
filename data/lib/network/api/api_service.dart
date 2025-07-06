@@ -11,6 +11,6 @@ abstract class ApiService {
     return _ApiService(dio, baseUrl: baseUrl);
   }
 
-  @GET("/daerahindonesia/provinsi")
+  @GET('/daerahindonesia/provinsi')
   Future<HttpResponse<ProvinceResponseEntity>> getProvince();
 }

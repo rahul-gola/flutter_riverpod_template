@@ -5,16 +5,16 @@ import 'package:json_annotation/json_annotation.dart';
 part 'province_entity.g.dart';
 
 @JsonSerializable()
-class ProvinceEntity with BaseLayerDataTransformer<ProvinceEntity, Province> {
-  final int id;
-
-  @JsonKey(name: "nama")
-  final String name;
-
-  ProvinceEntity({this.id = -1, this.name = ""});
+class ProvinceEntity
+    extends BaseLayerDataTransformer<ProvinceEntity, Province> {
+  ProvinceEntity({this.id = -1, this.name = ''});
 
   factory ProvinceEntity.fromJson(Map<String, dynamic> json) =>
       _$ProvinceEntityFromJson(json);
+  final int id;
+
+  @JsonKey(name: 'nama')
+  final String name;
 
   Map<String, dynamic> toJson() => _$ProvinceEntityToJson(this);
 

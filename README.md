@@ -1,16 +1,46 @@
-# flutter_riverpod_template
+# Flutter Riverpod Template
 
-A new Flutter project.
+A Flutter project template with Riverpod state management pre-configured for rapid development.
+
+## Features
+
+- Pre-configured Riverpod for state management
+- Clean architecture structure
+- Modern Material Design 3 theming
+- Development-ready setup
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+### Prerequisites
 
-A few resources to get you started if this is your first Flutter project:
+- Flutter SDK (latest stable version)
+- Dart SDK
+- IDE with Flutter support (VS Code, Android Studio, or IntelliJ)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Installation
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. Clone this template repository
+2. Run `flutter pub get` to install dependencies
+3. Run `flutter run` to start the application
+
+## Project Structure
+
+```
+lib/
+├── core/           # Core utilities and dependency injection
+├── src/
+│   ├── home/       # Home feature module
+│   └── my_app/     # App configuration
+data/               # Data layer module
+domain/             # Domain layer module
+```
+
+## State Management
+
+This template uses [Riverpod](https://riverpod.dev/) for state management, providing:
+
+- Type-safe providers
+- Excellent testing support
+- Great developer experience with code generation
+- Compile-time safety
+

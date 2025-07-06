@@ -8,7 +8,7 @@ import 'package:domain/repository/provice_data_repository.dart';
 import 'package:riverpod/riverpod.dart';
 
 class DatabaseProperties {
-  static const String DB_NAME = "appDb.db";
+  static const String DB_NAME = 'appDb.db';
   static const int DB_VERSION = 1; //BuildConfig.DB_VERSION;
 }
 
@@ -19,12 +19,16 @@ final floorAppDatabase = Provider<FloorDbService>(
 );
 
 final provinceRemoteDataSourceProvider = Provider<ProvinceRemoteRepoDataStore>(
-    (ref) =>
-        ProvinceRemoteRepositoryDataSourceImpl(ref.read(apiServiceProvider)));
+  (ref) => ProvinceRemoteRepositoryDataSourceImpl(ref.read(apiServiceProvider)),
+);
 
 final provinceLocalDataSourceProvider = Provider<ProvinceLocalRepoDataStore>(
-    (ref) => ProvinceLocalRepositoryDataSourceImpl(ref.read(floorAppDatabase)));
+  (ref) => ProvinceLocalRepositoryDataSourceImpl(ref.read(floorAppDatabase)),
+);
 
-final provinceDataRepositoryProvider = Provider<ProvinceDataRepository>((ref) =>
-    ProvinceDataRepositoryImpl(ref.read(provinceRemoteDataSourceProvider),
-        ref.read(provinceLocalDataSourceProvider)));
+final provinceDataRepositoryProvider = Provider<ProvinceDataRepository>(
+  (ref) => ProvinceDataRepositoryImpl(
+    ref.read(provinceRemoteDataSourceProvider),
+    ref.read(provinceLocalDataSourceProvider),
+  ),
+);

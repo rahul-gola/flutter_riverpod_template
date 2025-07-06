@@ -4,6 +4,6 @@ import 'package:floor/floor.dart';
 
 @dao
 abstract class ProvinceDao extends BaseDao<ProvinceDBEntity> {
-  @Query("SELECT * FROM province")
+  @Query('SELECT * FROM province')
   Future<List<ProvinceDBEntity>> getProvinces();
 }

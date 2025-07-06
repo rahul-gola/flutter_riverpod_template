@@ -2,14 +2,13 @@ import 'package:domain/model/province.dart';
 import 'package:domain/utils/mapper/base_layer_data_tranformer.dart';
 import 'package:floor/floor.dart';
 
-@Entity(tableName: "province")
+@Entity(tableName: 'province')
 class ProvinceDBEntity
     extends BaseLayerDataTransformer<ProvinceDBEntity, Province> {
+  ProvinceDBEntity({this.id, this.name = ''});
   @primaryKey
   int? id;
   String name;
-
-  ProvinceDBEntity({this.id, this.name = ""});
 
   @override
   Province transform() {

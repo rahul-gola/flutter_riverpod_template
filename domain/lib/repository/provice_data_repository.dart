@@ -7,5 +7,6 @@ abstract class ProvinceDataRepository {
   Future<Either<NetworkError, List<Province>>> getRemoteProvinceList();
 
   Future<Either<DatabaseError, List<Province>>> saveProvinceList(
-      List<Province> data);
+    List<Province> data,
+  );
 }

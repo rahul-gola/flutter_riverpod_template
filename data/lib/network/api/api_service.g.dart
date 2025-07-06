@@ -25,18 +25,21 @@ class _ApiService implements ApiService {
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<ProvinceResponseEntity>>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
+      _setStreamType<HttpResponse<ProvinceResponseEntity>>(
+        Options(
+              method: 'GET',
+              headers: _headers,
+              extra: _extra,
+            )
             .compose(
               _dio.options,
               '/daerahindonesia/provinsi',
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl),
+      ),
+    );
     final value = ProvinceResponseEntity.fromJson(_result.data!);
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
