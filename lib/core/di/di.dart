@@ -1,22 +1,15 @@
-import 'package:data/di/data_module.dart';
-import 'package:domain/usecase/fetch_province.dart';
-import 'package:domain/usecase/fetch_update_province.dart';
+import 'package:data/data.dart';
+import 'package:domain/domain.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_riverpod_template/src/home_screen/home_view_model.dart';
+import 'package:flutter_riverpod_template/src/home/view_model/home_view_model.dart';
+import 'package:flutter_riverpod_template/src/home/view_model/state/home_state.dart';
 
-final provinceFetchUseCase = Provider<FetchProvinceUseCase>(
-  (ref) {
-    return FetchProvinceUseCase(ref.read(provinceDataRepositoryProvider));
-  },
-);
+final getProductListUseCaseProvider = Provider<GetProductListUseCase>((ref) {
+  return GetProductListUseCase(ref.watch(productRepositoryProvider));
+});
 
-final provinceFetchAndUpdateUseCase = Provider<FetchUpdateProvinceUseCase>(
-  (ref) {
-    return FetchUpdateProvinceUseCase(ref.read(provinceDataRepositoryProvider));
-  },
-);
-
-final AutoDisposeChangeNotifierProvider<HomeViewModel> homeViewModelProvider =
-    ChangeNotifierProvider.autoDispose<HomeViewModel>(
-      (ref) => HomeViewModel(ref.read(provinceFetchUseCase)),
+final NotifierProvider<HomeViewModel, HomeState> homeViewModelProvider =
+    NotifierProvider<HomeViewModel, HomeState>(
+      HomeViewModel.new,
+      isAutoDispose: true,
     );

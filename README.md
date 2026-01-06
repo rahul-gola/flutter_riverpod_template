@@ -1,46 +1,65 @@
 # Flutter Riverpod Template
 
-A Flutter project template with Riverpod state management pre-configured for rapid development.
+![version](https://img.shields.io/badge/version-0.0.3-blue)
 
-## Features
+A modern Flutter project template designed for scalability and rapid development. This template comes pre-configured with Riverpod for state management, a clean architecture, and a focus on best practices.
 
-- Pre-configured Riverpod for state management
-- Clean architecture structure
-- Modern Material Design 3 theming
-- Development-ready setup
+## ✨ Features
 
-## Getting Started
+- **State Management**: Pre-configured with [Riverpod](https://riverpod.dev/) for robust and scalable state management.
+- **Clean Architecture**: Follows a clear and maintainable project structure, separating concerns into `data`, `domain`, and presentation layers.
+- **Dependency Injection**: Integrated dependency injection for managing services and dependencies.
+- **Theming**: Implements modern Material Design 3 theming for a consistent and visually appealing UI.
+- **Linting**: Strict linting rules to ensure code quality and consistency.
+- **Cross-Platform**: Supports iOS, Android, and web platforms out of the box.
+
+## 🚀 Getting Started
 
 ### Prerequisites
 
 - Flutter SDK (latest stable version)
 - Dart SDK
-- IDE with Flutter support (VS Code, Android Studio, or IntelliJ)
+- An IDE with Flutter support (VS Code, Android Studio, or IntelliJ)
 
 ### Installation
 
-1. Clone this template repository
-2. Run `flutter pub get` to install dependencies
-3. Run `flutter run` to start the application
+1.  **Clone the repository**:
 
-## Project Structure
+    ```bash
+    git clone https://github.com/your-username/flutter_riverpod_template.git
+    ```
+
+2.  **Install dependencies**:
+
+    ```bash
+    flutter pub get
+    ```
+
+3.  **Run the application**:
+
+    ```bash
+    flutter run
+    ```
+
+## 📂 Project Structure
 
 ```
-lib/
-├── core/           # Core utilities and dependency injection
-├── src/
-│   ├── home/       # Home feature module
-│   └── my_app/     # App configuration
-data/               # Data layer module
-domain/             # Domain layer module
+flutter_riverpod_template/
+├── android/
+├── ios/
+├── web/
+├── lib/
+│   ├── core/           # Core utilities, DI, and base classes
+│   ├── main.dart       # App entry point
+│   └── src/            # Presentation layer (UI)
+│       ├── home/       # Home feature
+│       └── my_app.dart # Main app widget and routing
+├── data/               # Data layer (repositories, data sources)
+├── domain/             # Domain layer (entities, use cases)
+├── assets/             # Static assets (images, fonts)
+└── pubspec.yaml        # Project dependencies and configuration
 ```
 
-## State Management
+## License
 
-This template uses [Riverpod](https://riverpod.dev/) for state management, providing:
-
-- Type-safe providers
-- Excellent testing support
-- Great developer experience with code generation
-- Compile-time safety
-
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

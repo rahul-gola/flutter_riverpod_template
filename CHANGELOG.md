@@ -1,3 +1,9 @@
+0.0.3
+
+- refactor: enhanced BaseStatefulWidget with generic state support for better type safety
+- fix: resolved state selection issues in HomeScreen
+- refactor: updated base architecture components
+
 0.0.2
 
 - feat: migrated Android build system from Groovy to Kotlin DSL
