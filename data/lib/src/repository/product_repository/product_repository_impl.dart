@@ -13,7 +13,7 @@ class ProductRepositoryImpl implements ProductRepository {
     Map<String, dynamic> queries,
   ) {
     return safeApiCall<List<ProductModel>>(
-      articleDataSource.getProductList(queries),
+      () => articleDataSource.getProductList(queries),
     );
   }
 }

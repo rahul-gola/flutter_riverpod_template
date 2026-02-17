@@ -1,3 +1,18 @@
+0.0.4
+
+- feat: overhauled splash screen with new animations and branding
+- feat: implemented CI/CD workflow with GitHub Actions for Android builds and releases
+- feat: added proguard rules for Android release builds
+- refactor: enhanced API error handling with detailed exception mapping and logging
+- refactor: updated UI colors and themes across the app
+- refactor: modernized iOS project structure with SceneDelegate
+- refactor: converted home view model state to a private part file
+- chore: upgraded Flutter SDK, Android Gradle Plugin, and numerous dependencies
+- chore: updated and streamlined linter rules across all modules
+- fix: corrected API call wrapper to properly handle async operations
+- fix: removed obsolete `TextView` widget and iOS launch screen assets
+- style: improved code formatting and documentation in multiple files
+
 0.0.3
 
 - refactor: enhanced BaseStatefulWidget with generic state support for better type safety

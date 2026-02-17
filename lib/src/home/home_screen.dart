@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_riverpod_template/core/base/stateful/base_stateful_widget.dart';
+import 'package:flutter_riverpod_template/core/base/base_widget/base_stateful_widget.dart';
+import 'package:flutter_riverpod_template/core/util/app_color.dart';
 import 'package:flutter_riverpod_template/src/home/view_model/home_view_model.dart';
-import 'package:flutter_riverpod_template/src/home/view_model/state/home_state.dart';
 import 'package:flutter_riverpod_template/src/home/widgets/item_card_widget.dart';
 import 'package:flutter_riverpod_template/src/widget/render/gap.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -36,7 +36,7 @@ class _HomeScreenState extends BasePageState<HomeScreen> {
           },
         ),
       ],
-      backgroundColor: Colors.deepPurple,
+      backgroundColor: AppColor.green900,
     );
   }
 
@@ -61,10 +61,7 @@ class _HomeScreenState extends BasePageState<HomeScreen> {
           itemCount: products.length,
           itemBuilder: (_, index) {
             final item = products[index];
-            return ItemCard(
-              title: item.title,
-              subtitle: item.category,
-            );
+            return ItemCard(title: item.title, subtitle: item.category);
           },
           separatorBuilder: (_, _) => const Gap.height(12),
         );

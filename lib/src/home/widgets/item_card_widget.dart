@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod_template/core/util/app_color.dart';
 
 class ItemCard extends StatelessWidget {
   const ItemCard({
     required this.title,
     required this.subtitle,
     this.date,
-    this.color = Colors.deepPurple,
+    this.color = AppColor.green900,
     this.onTap,
     this.onAction,
     super.key,
@@ -46,10 +47,7 @@ class ItemCard extends StatelessWidget {
                 backgroundColor: color.withAlpha(38),
                 child: Text(
                   title.isNotEmpty ? title[0].toUpperCase() : '-',
-                  style: TextStyle(
-                    color: color,
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: TextStyle(color: color, fontWeight: FontWeight.w700),
                 ),
               ),
               const SizedBox(width: 12),

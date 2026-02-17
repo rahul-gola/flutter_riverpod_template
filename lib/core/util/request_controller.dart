@@ -9,22 +9,27 @@ mixin RequestController {
     required void Function(T) onSuccess,
     void Function(NetworkError)? onFailure,
   }) async {
-    await createCall.execute(params).then((value) {
-      value.fold(
-        (error) {
-          onFailure?.call(error);
-          log(
-            ''''══════════════════════════════════════════════════════════════════════════════════════════''',
-          );
-          log('error: ${error.message}');
-          log(
-            ''''══════════════════════════════════════════════════════════════════════════════════════════''',
-          );
-        },
-        (data) {
-          onSuccess(data);
-        },
+    final result = await createCall.execute(params);
+    result.fold(
+      (error) => _handleError(error, onFailure),
+      (data) => onSuccess(data),
+    );
+  }
+
+  void _handleError(
+    NetworkError error,
+    void Function(NetworkError)? onFailure,
+  ) {
+    if (onFailure != null) {
+      onFailure(error);
+    } else {
+      log(
+        '''══════════════════════════════════════════════════════════════════════════════════════════''',
       );
-    });
+      log(error.message, name: 'RequestController', level: 1000);
+      log(
+        '''══════════════════════════════════════════════════════════════════════════════════════════''',
+      );
+    }
   }
 }

@@ -1,7 +1,10 @@
 import 'package:domain/domain.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter_riverpod_template/core/base/base_view_model/base_state.dart';
 import 'package:flutter_riverpod_template/core/base/base_view_model/base_viewmodel.dart';
 import 'package:flutter_riverpod_template/core/di/di.dart';
-import 'package:flutter_riverpod_template/src/home/view_model/state/home_state.dart';
+
+part 'home_state.dart';
 
 class HomeViewModel extends BaseViewModel<HomeState> {
   @override
