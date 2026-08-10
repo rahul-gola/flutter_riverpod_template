@@ -7,28 +7,37 @@ import 'package:flutter_riverpod_template/core/di/di.dart';
 part 'home_state.dart';
 
 class HomeViewModel extends BaseViewModel<HomeState> {
-  @override
-  HomeState build() => const HomeState();
+  static const int _pageSize = 20;
 
   @override
-  void runBuild() {
-    super.runBuild();
-    fetchProducts();
+  HomeState build() {
+    Future.microtask(fetchProducts);
+    return const HomeState();
   }
 
-  Future<void> fetchProducts() async {
-    state = state.copyWith(isLoading: true, clearError: true);
 
-    final useCase = ref.read(getProductListUseCaseProvider);
+  Future<void> retry() => fetchProducts();
+
+  Future<void> fetchProducts() async {
+    if (isDisposed || state.isLoading) return;
+
+    emit(state.copyWith(isLoading: true, clearError: true));
+
+    final useCase = ref.read(DI.getProductListUseCaseProvider);
 
     await apiCall<List<ProductModel>>(
       useCase,
-      params: GetArticleParams(limit: 1),
+      params: const GetProductParams(limit: _pageSize),
       onSuccess: (data) {
-        state = state.copyWith(
-          isLoading: false,
-          products: data,
-          clearError: true,
+        if (isDisposed) return;
+        emit(
+          state.copyWith(isLoading: false, products: data, clearError: true),
+        );
+      },
+      onFailure: (error) {
+        if (isDisposed) return;
+        emit(
+          state.copyWith(isLoading: false, error: error.getFriendlyMessage()),
         );
       },
     );

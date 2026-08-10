@@ -1,31 +1,29 @@
-import 'package:dartz/dartz.dart';
 import 'package:domain/src/model/error/network_error.dart';
 import 'package:domain/src/model/product_list/product_model.dart';
 import 'package:domain/src/repository/product_repository/product_repository.dart';
 import 'package:domain/src/usecase/base/base_usecase.dart';
 import 'package:domain/src/usecase/base/params.dart';
+import 'package:twofold/twofold.dart';
 
 class GetProductListUseCase
-    extends BaseUseCase<GetArticleParams, List<ProductModel>> {
-  GetProductListUseCase(this._articleRepository);
+    extends BaseUseCase<GetProductParams, List<ProductModel>> {
+  GetProductListUseCase(this._productRepository);
 
-  final ProductRepository _articleRepository;
+  final ProductRepository _productRepository;
 
   @override
-  Future<Either<NetworkError, List<ProductModel>>> execute(
-    GetArticleParams params,
+  Future<Twofold<List<ProductModel>, NetworkError>> execute(
+    GetProductParams params,
   ) {
-    return _articleRepository.getArticles(params.toJson);
+    return _productRepository.getProducts(params.toJson);
   }
 }
 
-class GetArticleParams extends Params {
-  GetArticleParams({required this.limit});
+class GetProductParams extends Params {
+  const GetProductParams({required this.limit});
 
   final int limit;
 
   @override
-  Map<String, dynamic> get toJson {
-    return {'limit': limit};
-  }
+  Map<String, dynamic> get toJson => {'limit': limit};
 }

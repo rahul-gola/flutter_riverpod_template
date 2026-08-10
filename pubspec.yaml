@@ -1,31 +1,29 @@
 name: flutter_riverpod_template
 description: A Flutter template project with Riverpod state management and clean architecture setup.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-version: 0.0.4+1
+version: 0.0.5+1
 homepage: https://github.com/rahul-gola/flutter_riverpod_template
 repository: https://github.com/rahul-gola/flutter_riverpod_template
 
 environment:
-  sdk: ^3.11.0
+  sdk: ^3.11.5
+
+workspace:
+  - data
+  - domain
 
 dependencies:
-  cupertino_icons: ^1.0.8
-  dartz:
-    git:
-      url: https://github.com/rahul-gola/dartz.git
-
+  cupertino_icons: ^1.0.9
   flutter:
     sdk: flutter
 
-  data:
-    path: data
-
-  domain:
-    path: domain
+  data: any
+  domain: any
 
   flutter_screenutil: ^5.9.3
-  flutter_riverpod: ^3.2.1
-  equatable: ^2.0.8
+  flutter_riverpod: 3.4.2
+  equatable: ^2.1.0
+  twofold: ^0.2.0
 
 dev_dependencies:
   flutter_test:

@@ -6,16 +6,9 @@ import 'package:data/src/util/api_interceptor.dart';
 import 'package:data/src/util/network_constant.dart';
 import 'package:dio/dio.dart';
 import 'package:domain/domain.dart';
+import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:riverpod/riverpod.dart';
-
-final prettyDioLoggerProvider = Provider<PrettyDioLogger>((ref) {
-  return PrettyDioLogger(
-    requestBody: true,
-    requestHeader: true,
-    responseHeader: true,
-  );
-});
 
 final apiInterceptorProvider = Provider<ApiInterceptor>((ref) {
   return ApiInterceptor();
@@ -23,14 +16,31 @@ final apiInterceptorProvider = Provider<ApiInterceptor>((ref) {
 
 final interceptorsProvider = Provider<List<Interceptor>>((ref) {
   return <Interceptor>[
-    ref.watch(prettyDioLoggerProvider),
+    // PrettyDioLogger dumps request/response bodies and headers to the
+    // console, which may contain PII/auth tokens. It must never ship to
+    // production builds.
+    if (!kReleaseMode)
+      PrettyDioLogger(
+        requestBody: true,
+        requestHeader: true,
+        responseHeader: true,
+      ),
     ref.watch(apiInterceptorProvider),
   ];
 });
 
 final dioProvider = Provider<Dio>((ref) {
-  const baseUrl = NetworkConstant.baseUrl;
-  final dio = Dio(BaseOptions(baseUrl: baseUrl));
+  final dio = Dio(
+    BaseOptions(
+      baseUrl: NetworkConstant.baseUrl,
+      connectTimeout: NetworkConstant.connectTimeout,
+      sendTimeout: NetworkConstant.sendTimeout,
+      receiveTimeout: NetworkConstant.receiveTimeout,
+      followRedirects: false,
+      validateStatus: (status) =>
+          status != null && status >= 200 && status < 300,
+    ),
+  );
   dio.interceptors.addAll(ref.watch(interceptorsProvider));
   return dio;
 });
@@ -40,11 +50,11 @@ final retrofitServiceProvider = Provider<RetrofitService>((ref) {
 });
 
 final productDataSourceProvider = Provider<ProductDataSource>((ref) {
-  return ArticleDataSourceImpl(ref.watch(retrofitServiceProvider));
+  return ProductDataSourceImpl(ref.watch(retrofitServiceProvider));
 });
 
 final productRepositoryProvider = Provider<ProductRepository>((ref) {
   return ProductRepositoryImpl(
-    articleDataSource: ref.watch(productDataSourceProvider),
+    productDataSource: ref.watch(productDataSourceProvider),
   );
 });

@@ -1,29 +1,28 @@
-// This is a basic Flutter widget test.
+// Smoke test for the app shell.
 //
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
+// Verifies the app boots, shows the branded splash, and that the primary
+// CTA navigates to the home screen.
 
-import 'package:flutter/material.dart';
+import 'package:flutter_riverpod_template/src/home/home_screen.dart';
 import 'package:flutter_riverpod_template/src/my_app/my_app.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
+  testWidgets('app boots onto the splash screen', (tester) async {
+    await tester.pumpWidget(const MyApp());
+    await tester.pump(); // Kick off splash animation.
+
+    expect(find.text('ShopVerse'), findsOneWidget);
+    expect(find.text('Get Started'), findsOneWidget);
+  });
+
+  testWidgets('Get Started navigates to the home screen', (tester) async {
     await tester.pumpWidget(const MyApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    await tester.tap(find.text('Get Started'));
+    await tester.pumpAndSettle();
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(find.text('Home Screen'), findsOneWidget);
+    expect(find.byType(HomeScreen), findsOneWidget);
   });
 }

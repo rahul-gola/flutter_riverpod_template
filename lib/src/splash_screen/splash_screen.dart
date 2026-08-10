@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod_template/core/base/base_widget/base_stateful_widget.dart';
 import 'package:flutter_riverpod_template/core/util/app_color.dart';
+import 'package:flutter_riverpod_template/src/home/home_screen.dart';
 import 'package:flutter_riverpod_template/src/splash_screen/view_model/splash_view_model.dart';
 import 'package:flutter_riverpod_template/src/widget/grid_painter.dart';
 
@@ -13,50 +14,21 @@ class SplashScreen extends BaseStatefulWidget<SplashViewModel, SplashState> {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends BasePageState<SplashScreen>
-    with SingleTickerProviderStateMixin {
+class _SplashScreenState extends BasePageState<SplashScreen> with SingleTickerProviderStateMixin {
   static const _duration = Duration(milliseconds: 2400);
 
-  late final AnimationController _c = AnimationController(
-    vsync: this,
-    duration: _duration,
-  )..forward();
+  late final AnimationController _controller = AnimationController(vsync: this, duration: _duration)..forward();
 
-  Animation<T> _interval<T>(
-    Tween<T> t,
-    double s,
-    double e, [
-    Curve c = Curves.easeOut,
-  ]) => t.animate(
-    CurvedAnimation(
-      parent: _c,
-      curve: Interval(s, e, curve: c),
-    ),
-  );
+  Animation<T> _interval<T>(Tween<T> t, double s, double e, [Curve c = Curves.easeOut,]) {
+    return t.animate(CurvedAnimation(parent: _controller, curve: Interval(s, e, curve: c),));
+  }
 
   late final bgFade = _interval(Tween(begin: 0.0, end: 1.0), 0, .3);
-  late final bgScale = _interval(
-    Tween(begin: 1.25, end: 1.0),
-    0,
-    .3,
-    Curves.easeOutCubic,
-  );
-
-  late final logoScale = _interval(
-    Tween(begin: 0.0, end: 1.0),
-    .2,
-    .6,
-    Curves.elasticOut,
-  );
+  late final bgScale = _interval(Tween(begin: 1.25, end: 1.0), 0, .3, Curves.easeOutCubic);
+  late final logoScale = _interval(Tween(begin: 0.0, end: 1.0), .2, .6, Curves.elasticOut);
   late final logoFade = _interval(Tween(begin: 0.0, end: 1.0), .2, .45);
-
   late final textFade = _interval(Tween(begin: 0.0, end: 1.0), .5, .8);
-  late final textSlide = _interval(
-    Tween(begin: const Offset(0, .5), end: Offset.zero),
-    .5,
-    .8,
-    Curves.easeOutCubic,
-  );
+  late final textSlide = _interval(Tween(begin: const Offset(0, .5), end: Offset.zero), .5, .8, Curves.easeOutCubic);
 
   @override
   Color? get backgroundColor => AppColor.green900;
@@ -64,7 +36,7 @@ class _SplashScreenState extends BasePageState<SplashScreen>
   @override
   Widget buildView(BuildContext context) {
     return AnimatedBuilder(
-      animation: _c,
+      animation: _controller,
       builder: (_, _) => Stack(
         children: [
           _background,
@@ -145,8 +117,10 @@ class _SplashScreenState extends BasePageState<SplashScreen>
                   vertical: 60,
                 ),
                 child: ElevatedButton(
-                  onPressed: () =>
-                      Navigator.pushReplacementNamed(context, '/home'),
+                  onPressed: () => Navigator.pushReplacementNamed(
+                    context,
+                    HomeScreen.routeName,
+                  ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColor.green100,
                     minimumSize: const Size(double.infinity, 56),
@@ -201,7 +175,7 @@ class _SplashScreenState extends BasePageState<SplashScreen>
 
   @override
   void dispose() {
-    _c.dispose();
+    _controller.dispose();
     super.dispose();
   }
 }

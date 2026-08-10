@@ -1,14 +1,15 @@
 import 'package:flutter/widgets.dart';
 
-/// Service exposing properties that must be set before services are used.
-abstract class AppService {
-  const AppService._();
+/// App-wide services and shared singletons.
+///
+/// The keys are cached at first access so their identity is *stable* for the
+/// whole app lifetime. Returning a fresh `GlobalKey` from a getter (as a naive
+/// implementation does) silently breaks anything that relies on the key being
+/// the same instance across rebuilds.
+abstract final class AppService {
+  static final GlobalKey<NavigatorState> navigatorKey =
+      GlobalKey<NavigatorState>(debugLabel: 'app-navigator');
 
-  /// Navigator key to set on the application's Navigator.
-  static GlobalKey<NavigatorState>? get navigatorKey =>
-      GlobalKey(debugLabel: 'my-app-key');
-
-  /// App root key to set on the application's MaterialApp or WidgetsApp.
-  static GlobalKey<State<StatefulWidget>> get appKey =>
-      GlobalKey<State<StatefulWidget>>(debugLabel: 'appKey-app-key');
+  static final GlobalKey<State<StatefulWidget>> appKey =
+      GlobalKey<State<StatefulWidget>>(debugLabel: 'app-root');
 }

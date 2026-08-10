@@ -1,3 +1,14 @@
+0.0.5
+
+- feat: expanded product data model with `ProductDetailEntity` and associated sub-entities
+- feat: added a reusable `ErrorView` widget for consistent error state handling in the UI
+- refactor: overhauled `BaseViewModel` and `BaseStatefulWidget` for improved state and lifecycle management
+- refactor: enhanced data layer with refined `ProductRepository` and `ProductDataSource` implementations
+- refactor: updated domain layer models and use cases for better consistency across modules
+- ui: refined `HomeScreen`, `SplashScreen`, and `ItemCardWidget` for improved UX and styling
+- chore: updated Android build configurations (Gradle, Proguard) and app launcher icons
+- chore: modernized project build setup and dependency management across workspace modules
+
 0.0.4
 
 - feat: overhauled splash screen with new animations and branding

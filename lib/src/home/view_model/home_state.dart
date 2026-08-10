@@ -1,6 +1,6 @@
 part of 'home_view_model.dart';
 
-class HomeState extends BaseState with EquatableMixin {
+class HomeState extends BaseState with Equatable {
   const HomeState({
     this.products = const [],
     this.isLoading = false,
@@ -10,6 +10,8 @@ class HomeState extends BaseState with EquatableMixin {
   final List<ProductModel> products;
   final bool isLoading;
   final String? error;
+
+  bool get hasError => error != null;
 
   HomeState copyWith({
     List<ProductModel>? products,

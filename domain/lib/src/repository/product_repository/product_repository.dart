@@ -1,9 +1,9 @@
-import 'package:dartz/dartz.dart';
 import 'package:domain/src/model/error/network_error.dart';
 import 'package:domain/src/model/product_list/product_model.dart';
+import 'package:twofold/twofold.dart';
 
 abstract class ProductRepository {
-  Future<Either<NetworkError, List<ProductModel>>> getArticles(
+  Future<Twofold<List<ProductModel>, NetworkError>> getProducts(
     Map<String, dynamic> queries,
   );
 }

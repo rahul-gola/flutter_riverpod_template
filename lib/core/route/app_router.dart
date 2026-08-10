@@ -5,11 +5,23 @@ import 'package:flutter_riverpod_template/src/splash_screen/splash_screen.dart';
 
 Route<dynamic> onGenerateRoute(RouteSettings settings) {
   switch (settings.name) {
+    case null:
+      // Initial route (no route name provided).
+      return MaterialPageRoute(
+        builder: (_) => SplashScreen(DI.splashVMProvider),
+        settings: settings,
+      );
     case SplashScreen.routeName:
-      return MaterialPageRoute(builder: (_) => SplashScreen(splashVMProvider));
+      return MaterialPageRoute(
+        builder: (_) => SplashScreen(DI.splashVMProvider),
+        settings: settings,
+      );
     case HomeScreen.routeName:
-      return MaterialPageRoute(builder: (_) => HomeScreen(homeVMProvider));
+      return MaterialPageRoute(
+        builder: (_) => HomeScreen(DI.homeVMProvider),
+        settings: settings,
+      );
     default:
-      return MaterialPageRoute(builder: (_) => SplashScreen(splashVMProvider));
+      throw UnsupportedError('Unhandled route: ${settings.name}');
   }
 }
